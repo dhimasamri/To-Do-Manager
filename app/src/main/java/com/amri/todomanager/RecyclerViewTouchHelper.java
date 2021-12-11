@@ -34,7 +34,7 @@ public class RecyclerViewTouchHelper extends ItemTouchHelper.SimpleCallback {
         final int position = viewHolder.getAdapterPosition();
         if (direction == ItemTouchHelper.LEFT){
             adapter.deletTask(position);
-
+            /**
             AlertDialog.Builder builder = new AlertDialog.Builder(adapter.getContext());
             builder.setTitle("Hapus tugas");
             builder.setMessage("Anda yakin?");
@@ -52,7 +52,7 @@ public class RecyclerViewTouchHelper extends ItemTouchHelper.SimpleCallback {
             });
             AlertDialog dialog = builder.create();
             dialog.show();
-            
+            **/
         } else {
             adapter.editItem(position);
         }
