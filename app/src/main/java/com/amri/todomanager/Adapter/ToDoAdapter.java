@@ -21,13 +21,13 @@ import java.util.List;
 
 public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> {
 
-    private List<ToDoModel> mList;
-    private MainActivity activity;
-    private DataBaseHelper myDB;
+    private List<ToDoModel> bList;
+    private MainActivity mainActivity;
+    private DataBaseHelper adapterDataBase;
 
-    public ToDoAdapter(DataBaseHelper myDB, MainActivity activity){
-        this.activity = activity;
-        this.myDB = myDB;
+    public ToDoAdapter(DataBaseHelper dataBase, MainActivity mainActivity){
+        this.mainActivity = mainActivity;
+        this.adapterDataBase = dataBase;
     }
 
 
@@ -40,16 +40,16 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final ToDoModel item = mList.get(position);
-        holder.mCheckBox.setText(item.getTask());
-        holder.mCheckBox.setChecked(toBoolean(item.getStatus()));
-        holder.mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        final ToDoModel item = bList.get(position);
+        holder.aCheckBox.setText(item.getTask());
+        holder.aCheckBox.setChecked(toBoolean(item.getStatus()));
+        holder.aCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
-                    myDB.updateStatus(item.getId(), 1);
+                    adapterDataBase.updateStatus(item.getId(), 1);
                 }else
-                    myDB.updateStatus(item.getId(), 0);
+                    adapterDataBase.updateStatus(item.getId(), 0);
             }
         });
     }
@@ -59,23 +59,23 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
     }
 
     public Context getContext(){
-        return activity;
+        return mainActivity;
     }
 
-    public void setTasks(List<ToDoModel> mList){
-        this.mList = mList;
+    public void setTasks(List<ToDoModel> aList){
+        this.bList = aList;
         notifyDataSetChanged();
     }
 
     public void deletTask(int position){
-        ToDoModel item = mList.get(position);
-        myDB.deleteTask(item.getId());
-        mList.remove(position);
+        ToDoModel item = bList.get(position);
+        adapterDataBase.deleteTask(item.getId());
+        bList.remove(position);
         notifyItemRemoved(position);
     }
 
     public void editItem(int position){
-        ToDoModel item = mList.get(position);
+        ToDoModel item = bList.get(position);
 
         Bundle bundle = new Bundle();
         bundle.putInt("id" , item.getId());
@@ -83,21 +83,21 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.MyViewHolder> 
 
         AddNewTask task = new AddNewTask();
         task.setArguments(bundle);
-        task.show(activity.getSupportFragmentManager(), task.getTag());
+        task.show(mainActivity.getSupportFragmentManager(), task.getTag());
 
 
     }
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return bList.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        CheckBox mCheckBox;
+        CheckBox aCheckBox;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            mCheckBox = itemView.findViewById(R.id.mcheckbox);
+            aCheckBox = itemView.findViewById(R.id.layoutcheckbox);
         }
     }
 }

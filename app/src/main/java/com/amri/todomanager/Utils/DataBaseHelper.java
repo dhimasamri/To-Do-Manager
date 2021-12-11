@@ -1,5 +1,6 @@
 package com.amri.todomanager.Utils;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -42,30 +43,31 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void insertTask(ToDoModel model){
         db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL_2 , model.getTask());
-        values.put(COL_3 , 0);
-        db.insert(TABLE_NAME , null , values);
+        values.put(COL_2, model.getTask());
+        values.put(COL_3, 0);
+        db.insert(TABLE_NAME, null, values);
     }
 
-    public void updateTask(int id , String task){
+    public void updateTask(int id, String task){
         db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL_2 , task);
-        db.update(TABLE_NAME , values , "ID=?" , new String[]{String.valueOf(id)});
+        values.put(COL_2, task);
+        db.update(TABLE_NAME, values, "ID=?", new String[]{String.valueOf(id)});
     }
 
-    public void updateStatus(int id , int status){
+    public void updateStatus(int id, int status){
         db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL_3 , status);
-        db.update(TABLE_NAME , values , "ID=?" , new String[]{String.valueOf(id)});
+        values.put(COL_3, status);
+        db.update(TABLE_NAME, values, "ID=?", new String[]{String.valueOf(id)});
     }
 
     public void deleteTask(int id ){
         db = this.getWritableDatabase();
-        db.delete(TABLE_NAME , "ID=?" , new String[]{String.valueOf(id)});
+        db.delete(TABLE_NAME, "ID=?", new String[]{String.valueOf(id)});
     }
 
+    @SuppressLint("Range")
     public List<ToDoModel> getAllTasks(){
 
         db = this.getWritableDatabase();
@@ -74,7 +76,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         db.beginTransaction();
         try {
-            cursor = db.query(TABLE_NAME , null , null , null , null , null , null);
+            cursor = db.query(TABLE_NAME, null, null, null, null, null, null);
             if (cursor !=null){
                 if (cursor.moveToFirst()){
                     do {

@@ -1,6 +1,7 @@
 package com.amri.todomanager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,45 +20,48 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnDialogCloseListner {
 
-    private RecyclerView mRecyclerview;
-    private FloatingActionButton fab;
-    private DataBaseHelper myDB;
-    private List<ToDoModel> mList;
-    private ToDoAdapter adapter;
+    private RecyclerView aRecyclerview;
+    private FloatingActionButton floatingActionButton;
+    private DataBaseHelper mainDataBase;
+    private List<ToDoModel> aList;
+    private ToDoAdapter doAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mRecyclerview = findViewById(R.id.recyclerview);
-        fab = findViewById(R.id.fab);
-        myDB = new DataBaseHelper(MainActivity.this);
-        mList = new ArrayList<>();
-        adapter = new ToDoAdapter(myDB, MainActivity.this);
+        aRecyclerview = findViewById(R.id.recyclerview);
+        floatingActionButton = findViewById(R.id.fab);
+        mainDataBase = new DataBaseHelper(MainActivity.this);
+        aList = new ArrayList<>();
+        doAdapter = new ToDoAdapter(mainDataBase, MainActivity.this);
 
-        mRecyclerview.setHasFixedSize(true);
-        mRecyclerview.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerview.setAdapter(adapter);
+        aRecyclerview.setHasFixedSize(true);
+        aRecyclerview.setLayoutManager(new LinearLayoutManager(this));
+        aRecyclerview.setAdapter(doAdapter);
 
-        mList = myDB.getAllTasks();
-        Collections.reverse(mList);
-        adapter.setTasks(mList);
+        aList = mainDataBase.getAllTasks();
+        Collections.reverse(aList);
+        doAdapter.setTasks(aList);
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AddNewTask.newInstance().show(getSupportFragmentManager(), AddNewTask.TAG);
 
             }
         });
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new RecyclerViewTouchHelper(doAdapter));
+        itemTouchHelper.attachToRecyclerView(aRecyclerview);
     }
 
     @Override
     public void onDialogClose(DialogInterface dialogInterface) {
-        mList = myDB.getAllTasks();
-        Collections.reverse(mList);
-        adapter.setTasks(mList);
-        adapter.notifyDataSetChanged();
+        aList = mainDataBase.getAllTasks();
+        Collections.reverse(aList);
+        doAdapter.setTasks(aList);
+        doAdapter.notifyDataSetChanged();
     }
 }
