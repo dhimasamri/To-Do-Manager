@@ -34,4 +34,13 @@
         android:src="@drawable/ic_baseline_add_24"
         android:layout_margin="30dp"/>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/fab"
+        android:id="@+id/notify_button"
+        android:src="@drawable/ic_baseline_message_24"
+        android:layout_marginRight="30dp"/>
+
 </RelativeLayout>
