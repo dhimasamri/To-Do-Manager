@@ -83,7 +83,7 @@ Kegiatan saat ini :
   
 ## Useful link
 
-Link aplikasi di playstore : https://play.google.com/store/apps/details?id=com.amri.todomanager
-Privacy policy : https://pages.flycricket.io/to-do-manager/privacy.html
-Video wawancara langsung dengan keempat tester : https://www.youtube.com/watch?v=3tKgGwsr7tw
-Subtitle video :
+- Link aplikasi di playstore : https://play.google.com/store/apps/details?id=com.amri.todomanager
+- Privacy policy : https://pages.flycricket.io/to-do-manager/privacy.html
+- Video wawancara langsung dengan keempat tester : https://www.youtube.com/watch?v=3tKgGwsr7tw
+- Subtitle video :
