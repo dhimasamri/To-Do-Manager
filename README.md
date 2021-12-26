@@ -1,7 +1,10 @@
 # TO DO MANAGER
 
 Final Project Mobile Computing 2021
-Universitas Negeri Jakarta
+Universitas Negeri Jakarta\
+
+Dhimas Amri Pratama
+1313618018
 
 ## App Description
 
